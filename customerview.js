@@ -68,16 +68,32 @@ function runSale(){
           return;
         }
         else {
-          var orderTotal = result[0].price * unit;
           var stockUpdate = result[0].stock_quantity - unit;
           var makePurchase = 'UPDATE products SET stock_quantity = ? WHERE item_id = ?';
+          var orderTotal = result[0].price * unit;
+
+          var orderTotalEn = orderTotal.toLocaleString();
+
+          // var oT = orderTotal.toString();
+          // var u = oT.slice(0, 2);
+          // var v = oT.slice(2);
+          // var upT;
+          // console.log(oT);
+
+          // if (oT.length >= 5) {
+          //   upT = u + ',' + v;
+          // } else {
+          //   upT = orderTotal;
+          // }
+
+
 
           dbconnect.query(makePurchase, [stockUpdate, item], function(err, response) {
             if (err) throw err;
 
             var output = [
               response.changedRows +' order(s) received.',
-              'Your order total is $' + orderTotal,
+              'Your order total is $' + orderTotalEn,
               'Thank you for shopping with Bamazon.'
             ].join('\n');
             console.log(output);
