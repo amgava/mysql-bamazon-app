@@ -38,7 +38,7 @@ dbconnect.query('SELECT * FROM products', function(err, result) {
   }
 );
 
-//Defining function to prompt customer to make purchase selection, 
+//Defining function to prompt customer to make purchase selection,
 //show price of selection, update database to reflect purchase
 function runSale(){
   inquirer
@@ -68,7 +68,7 @@ function runSale(){
           return;
         }
         else {
-          var orderTotal = result[0].price;
+          var orderTotal = result[0].price * unit;
           var stockUpdate = result[0].stock_quantity - unit;
           var makePurchase = 'UPDATE products SET stock_quantity = ? WHERE item_id = ?';
 
